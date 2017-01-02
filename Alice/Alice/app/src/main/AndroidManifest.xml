@@ -38,5 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Setting.SettingActivity.SettingActivity"/>
     </application>
 </manifest>

@@ -40,6 +40,12 @@ public abstract class Alice {
      */
     public static Boolean ISRUN = false;
 
+    /**
+     * 枚举Alice当前正在做某些事情
+     */
+    public enum ALICE_TASK{
+
+    }
 
 
 
@@ -64,20 +70,20 @@ public abstract class Alice {
         this.sex = newSex;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int newHeight) {
-        this.height = newHeight;
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int newWeight) {
-        this.weight = newWeight;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getAge() {
@@ -96,4 +102,11 @@ public abstract class Alice {
         isSetting = setting;
     }
 
+    public static Boolean getISRUN() {
+        return ISRUN;
+    }
+
+    public static void setISRUN(Boolean ISRUN) {
+        Alice.ISRUN = ISRUN;
+    }
 }
