@@ -1,0 +1,15 @@
+<resources>
+
+    <!--APP名字-->
+    <string name="app_name">Alice</string>
+
+    <!--首页标题-->
+    <string name="HomePage_Title">Alice</string>
+
+    <!--开始说话-->
+    <string name="StartSay">按下说话</string>
+
+    <!--开始说话-->
+    <string name="EndSay">松开结束</string>
+
+</resources>
