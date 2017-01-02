@@ -86,7 +86,7 @@ public abstract class Brain extends Activity{
      */
     public Result getMsgState(Message msg){
         Bundle bundle = msg.getData();
-        Result result = (Result) bundle.getSerializable("Brain");
+        Result result = (Result) bundle.getSerializable(MSG_STATE_BRAIN);
         return result;
     }
 
@@ -103,7 +103,4 @@ public abstract class Brain extends Activity{
         msg.setData(bundle);
         return msg;
     }
-
-
-
 }
