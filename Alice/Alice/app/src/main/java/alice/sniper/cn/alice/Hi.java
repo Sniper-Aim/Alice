@@ -97,13 +97,13 @@ public class Hi extends Brain{
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (or) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        start_say.setBackgroundResource(R.color.button_Start);
+                        start_say.setBackgroundResource(R.color.button_Start_Color);
                         start_say_tex.setText(R.string.EndSay);
                         hear.start();
                     }
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        start_say.setBackgroundResource(R.color.button_End);
+                        start_say.setBackgroundResource(R.color.button_End_Color);
                         start_say_tex.setText(R.string.StartSay);
                         hear.stop();
                         or = false;
@@ -134,7 +134,6 @@ public class Hi extends Brain{
         /* --------------------------------------------------------------------------------------- */
         /* 初始化 开始说话按钮 文字 */
         start_say.setText(R.string.StartSay);
-
 
         /**
          * 初始化各项类对象

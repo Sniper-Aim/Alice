@@ -39,8 +39,8 @@ public class SettingActivity extends Activity {
      */
     public void initDialog(){
         settingPromptDialog = new SettingPromptDialog(this, R.style.MyDialog);
-        settingPromptDialog.setTitle("");
-        settingPromptDialog.setText("");
+        settingPromptDialog.setTitle("提示");
+        settingPromptDialog.setText("Alice 只能设置一次");
         settingPromptDialog.setOKButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

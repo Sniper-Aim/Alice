@@ -2,12 +2,14 @@ package alice.sniper.cn.alice.Brain;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
 import alice.sniper.cn.alice.Hear.HearResult.Result;
+import alice.sniper.cn.alice.Setting.SettingActivity.SettingActivity;
 
 /**
  * Brain 大脑类, 主要的存在.
@@ -76,6 +78,11 @@ public abstract class Brain extends Activity{
 
                 /**  说话  */
                 case SAY_TOAST:
+                    if (result.getValues().equals("设置。")){
+                        Intent intent = new Intent(alice, SettingActivity.class);
+                        startActivity(intent);
+                    }
+
                     Toast.makeText(alice, result.getValues(),Toast.LENGTH_LONG).show();
                     break;
 
