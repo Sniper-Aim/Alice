@@ -3,7 +3,34 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="button_Start">#FF585858</color>
-    <color name="button_End">#FF454545</color>
 
+
+    <!--APP主页背景色-->
+    <color name="APP_Main_Back_Color">#201f1f</color>
+
+    <!--按钮主要的颜色-->
+    <color name="button_Back_Color">#585858</color>
+
+    <!--按钮弹起后的颜色-->
+    <color name="button_Start_Color">#585858</color>
+
+    <!--按钮按下后的颜色-->
+    <color name="button_End_Color">#454545</color>
+
+    <!--按钮上的文字颜色-->
+    <color name="button_Text_Color">#a1a1a1</color>
+
+
+
+    <!--文字的主要颜色-->
+    <color name="text_Color">#585858</color>
+
+    <!--Dialog背景颜色-->
+    <color name="dialog_Back_Color">#585858</color>
+
+    <!--Dialog按钮的背景颜色-->
+    <color name="dialog_Button_Back_Color">#FF6C6C6C</color>
+
+    <!--Dialog的文字颜色-->
+    <color name="dialog_Text_Color">#a1a1a1</color>
 </resources>

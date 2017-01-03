@@ -1,14 +1,11 @@
 package alice.sniper.cn.alice;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 
 import com.zcw.togglebutton.ToggleButton;
 
@@ -80,11 +77,13 @@ public class Hi extends Brain{
             }
         });
 
-        Thought.BrainSay(new BrainInterFace.ToastSay() {
+        Thought.ToastSay(new BrainInterFace.ToastSay() {
             @Override
             public void Say(String str) {
                 /**
                  * 调用继承的Brain类handler发送一条消息进行处理
+                 * 这里是一个接口的回调, 有了结果就会回调这个方法,
+                 * 然后这个方法再向Brain的Handler发送一个讲话消息, 将结果发送给Brain处理
                  */
                 handler.sendMessage(msg(Brain.MSG_STATE_BRAIN, new Result("", str, MSG_STATE.SAY_TOAST)));
             }
@@ -98,13 +97,13 @@ public class Hi extends Brain{
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (or) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        start_say.setBackgroundResource(R.color.button_Start);
+                        start_say.setBackgroundResource(R.color.button_Start_Color);
                         start_say_tex.setText(R.string.EndSay);
                         hear.start();
                     }
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        start_say.setBackgroundResource(R.color.button_End);
+                        start_say.setBackgroundResource(R.color.button_End_Color);
                         start_say_tex.setText(R.string.StartSay);
                         hear.stop();
                         or = false;
@@ -135,7 +134,6 @@ public class Hi extends Brain{
         /* --------------------------------------------------------------------------------------- */
         /* 初始化 开始说话按钮 文字 */
         start_say.setText(R.string.StartSay);
-
 
         /**
          * 初始化各项类对象

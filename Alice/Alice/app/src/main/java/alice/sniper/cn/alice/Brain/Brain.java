@@ -8,9 +8,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
 import alice.sniper.cn.alice.Hear.HearResult.Result;
+import alice.sniper.cn.alice.Setting.SettingActivity.SettingActivity;
 
 /**
  * Brain 大脑类, 主要的存在.
@@ -63,15 +62,31 @@ public abstract class Brain extends Activity{
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+
+            /**
+             * 解析序列化对象结果并还原成为封装好的结果类型
+             */
             Result result = getMsgState(msg);
+
+            /**
+             * 根据不同的消息请求状态来执行不同的操作
+             */
             switch (result.getState()){
+                /**  默认  */
                 case MSG_STATE:
                     break;
 
+                /**  说话  */
                 case SAY_TOAST:
+                    if (result.getValues().equals("设置。")){
+                        Intent intent = new Intent(alice, SettingActivity.class);
+                        startActivity(intent);
+                    }
+
                     Toast.makeText(alice, result.getValues(),Toast.LENGTH_LONG).show();
                     break;
 
+                /**  跳转  */
                 case INTENT_PACKAGE_NAME:
 
                     break;

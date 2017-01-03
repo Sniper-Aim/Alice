@@ -40,8 +40,20 @@ public class Thought extends Thread{
                  * 是否已经有结果,  有的话将通知大脑处理这个结果
                  */
                 if (HearResult.isResult()) {
+
+                    /**
+                     * 打印一次结果
+                     */
                     Log.e(TAG, "" + HearResult.getResult());
+
+                    /**
+                     * 将结果传递到需要的地方 TODO 这个结果来自用户的口述, 需要分析后给出合理的状态和答案
+                     */
                     brainSay.Say(HearResult.getResult().toString());
+
+                    /**
+                     * 将是否结果是否接收完的属性初始化!
+                     */
                     HearResult.setIsResult(false);
                 }
                 Thread.sleep(500);
@@ -56,7 +68,7 @@ public class Thought extends Thread{
         Thought.isRun = isRun;
     }
 
-    public static void BrainSay(BrainInterFace.ToastSay brainSay){
+    public static void ToastSay(BrainInterFace.ToastSay brainSay){
         Thought.brainSay = brainSay;
     }
 }
