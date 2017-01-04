@@ -15,6 +15,7 @@ import alice.sniper.cn.alice.Brain.Brain;
 import alice.sniper.cn.alice.Brain.BrainInterFace.BrainInterFace;
 import alice.sniper.cn.alice.ExternalTools.Animation.Animatiom;
 import alice.sniper.cn.alice.ExternalTools.Animation.AnimationOver;
+import alice.sniper.cn.alice.ExternalTools.Ｌｏｇｓ.Logger;
 import alice.sniper.cn.alice.Hear.Hear;
 import alice.sniper.cn.alice.Hear.HearResult.Result;
 import alice.sniper.cn.alice.Thought.Thought;
@@ -129,6 +130,8 @@ public class Hi extends Brain{
         start_say.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                Logger.i("我在测试点击哦6666666666666666666666");
+
                 if (or) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         start_say.setBackgroundResource(R.color.button_Start_Color);
