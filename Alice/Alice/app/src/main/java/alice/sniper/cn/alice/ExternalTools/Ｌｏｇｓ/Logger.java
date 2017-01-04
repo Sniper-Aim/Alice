@@ -10,11 +10,11 @@ public class Logger {
     /**
      * 获取运行栈的信息
      */
-    static StackTraceElement[] stacks = new Throwable().getStackTrace();
+    private static StackTraceElement[] stacks = new Throwable().getStackTrace();
     /**
      *  Log开关
      */
-    private static boolean ISDEBUG;
+    public static boolean ISDEBUG;
 
     /**
      * 正常模式打印语句
