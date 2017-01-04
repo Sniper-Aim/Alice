@@ -38,7 +38,7 @@ public abstract class Alice {
     /**
      * Alice是否已经启动
      */
-    public static Boolean ISRUN = false;
+    private static Boolean isRUN = false;
 
     /**
      * 枚举Alice当前正在做某些事情
@@ -103,10 +103,10 @@ public abstract class Alice {
     }
 
     public static Boolean getISRUN() {
-        return ISRUN;
+        return isRUN;
     }
 
     public static void setISRUN(Boolean ISRUN) {
-        Alice.ISRUN = ISRUN;
+        Alice.isRUN = ISRUN;
     }
 }
