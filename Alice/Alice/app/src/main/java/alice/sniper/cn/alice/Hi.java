@@ -20,6 +20,7 @@ import alice.sniper.cn.alice.Hear.Hear;
 import alice.sniper.cn.alice.Hear.HearResult.Result;
 import alice.sniper.cn.alice.Thought.Thought;
 
+
 /**
  * Created by pei_song on 2016/12/26.
  */
@@ -52,6 +53,11 @@ public class Hi extends Brain{
      * 切换输入按钮
      */
     private Button main_switch_input_button;
+
+    /**
+     * 切换说话按钮
+     */
+    private Button main_switch_say_button;
 
     /**
      * 主页显示Text
@@ -88,6 +94,12 @@ public class Hi extends Brain{
      * 设置所有事件
      */
     public void setEvent(){
+
+
+
+        main_say_layout.setVisibility(View.VISIBLE);
+        main_input_layout.setVisibility(View.GONE);
+
 
         /**
          * 开启 “思想” 类刷新线程
@@ -134,15 +146,11 @@ public class Hi extends Brain{
 
                 if (or) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        start_say.setBackgroundResource(R.color.button_Start_Color);
-                        start_say_tex.setText(R.string.EndSay);
-                        hear.start();
+                        startSay();
                     }
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        start_say.setBackgroundResource(R.color.button_End_Color);
-                        start_say_tex.setText(R.string.StartSay);
-                        hear.stop();
+                        stopSay();
                         or = false;
                     }
                 }
@@ -156,45 +164,20 @@ public class Hi extends Brain{
         main_switch_input_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isSwitchPage) {
+                /* 切换页面 */
+                switchPage();
+            }
+        });
 
-                    /**
-                     * 这里枚举当前停留的页面
-                     */
-                    switch (page) {
-                        case SAY:
-                            /**
-                             * 设置动画效果, 最后一个参数为动画结束后的回调函数执行什么
-                             * 首先将切换状态设置为true 然后在回调内做自己的事情再将切换状态设置为false
-                             */
-                            isSwitchPage = true;
-                            Animatiom.Alpha05(alice, main_say_layout, true, new AnimationOver.Over() {
-                                @Override
-                                public void over() {
-                                /* 动画效果结束后执行的代码 */
-
-                                    page = PAGE.INPUT;
-                                    isSwitchPage = false;
-                                }
-                            });
-                            break;
-                        case INPUT:
-                            isSwitchPage = true;
-                            Animatiom.BackAlpha05(alice, main_say_layout, true, new AnimationOver.Over() {
-                                @Override
-                                public void over() {
-                                /* 动画效果结束后执行的代码 */
-
-                                    page = PAGE.SAY;
-                                    isSwitchPage = false;
-                                }
-                            });
-                            break;
-                    }
-                }
+        main_switch_say_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /* 切换页面 */
+                switchPage();
             }
         });
     }
+
 
 
     /**
@@ -223,6 +206,9 @@ public class Hi extends Brain{
         /* 切换输入按钮 */
         main_switch_input_button = (Button) findViewById(R.id.main_switch_input_button);
 
+        /* 切换说话按钮 */
+        main_switch_say_button = (Button) findViewById(R.id.main_switch_say_button);
+
         /* --------------------------------------------------------------------------------------- */
         /* 初始化 开始说话按钮 文字 */
         start_say.setText(R.string.StartSay);
@@ -233,6 +219,81 @@ public class Hi extends Brain{
         hear = new Hear(alice);
 
     }
+
+
+    /**---------上为初始化以及设置事件-----------*/
+
+    /**
+     * 切换主页页面的方法
+     */
+    public void switchPage(){
+        if (!isSwitchPage) {
+
+            /**
+             * 这里枚举当前停留的页面
+             */
+            switch (page) {
+                case SAY:
+                    /**
+                     * 设置动画效果, 最后一个参数为动画结束后的回调函数执行什么
+                     * 首先将切换状态设置为true 然后在回调内做自己的事情再将切换状态设置为false
+                     */
+                    isSwitchPage = true;
+                    Animatiom.Alpha05(alice, main_say_layout, true, new AnimationOver.Over() {
+                        @Override
+                        public void over() {
+                                /* 动画效果结束后执行的代码 */
+
+                            page = PAGE.INPUT;
+                            isSwitchPage = false;
+
+                    main_input_layout.setVisibility(View.VISIBLE);
+                    main_say_layout.setVisibility(View.GONE);
+
+                        }
+                    });
+                    break;
+                case INPUT:
+                    isSwitchPage = true;
+                    Animatiom.BackAlpha05(alice, main_say_layout, true, new AnimationOver.Over() {
+                        @Override
+                        public void over() {
+                                /* 动画效果结束后执行的代码 */
+
+                            page = PAGE.SAY;
+                            isSwitchPage = false;
+
+                    main_say_layout.setVisibility(View.VISIBLE);
+                    main_input_layout.setVisibility(View.GONE);
+                        }
+                    });
+                    break;
+            }
+        }
+    }
+
+
+    /**
+     * 开始说话方法
+     */
+    public void startSay(){
+        start_say.setBackgroundResource(R.color.button_Start_Color);
+        start_say_tex.setText(R.string.EndSay);
+        hear.start();
+    }
+
+
+    /**
+     * 结束说话方法
+     */
+    public void stopSay(){
+        start_say.setBackgroundResource(R.color.button_End_Color);
+        start_say_tex.setText(R.string.StartSay);
+        hear.stop();
+    }
+
+
+    /**---------下为周期方法-----------*/
 
 
     @Override

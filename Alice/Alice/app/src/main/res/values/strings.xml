@@ -14,7 +14,9 @@
 
     <!--开始说话-->
     <string name="EndSay">松开结束</string>
-
+    
+    <!--输入对话内容-->
+    <string name="alice_edit_hint">输入对话内容</string>
 
 
 
