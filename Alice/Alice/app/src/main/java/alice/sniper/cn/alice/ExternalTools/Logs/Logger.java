@@ -1,4 +1,4 @@
-package alice.sniper.cn.alice.ExternalTools.Ｌｏｇｓ;
+package alice.sniper.cn.alice.ExternalTools.Logs;
 
 import android.util.Log;
 
