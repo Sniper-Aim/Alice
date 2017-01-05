@@ -48,6 +48,7 @@
         </LinearLayout>
 
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -70,9 +71,38 @@
                     android:text="打字界面"/>
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/input_edit"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/alice_edit_hint"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"/>
+
+                    <Button
+                        android:id="@+id/main_switch_input_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/alice_switch_input_button"/>
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
-
+<!--============================================================================================-->
 
             <!--这个布局是主页切换布局, 这个是上一层布局  也就是说话的布局-->
             <RelativeLayout
@@ -90,44 +120,44 @@
                     android:text="@string/StartSay"/>
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <Button
+                        android:id="@+id/start_say"
+                        android:layout_width="200dp"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/button_End_Color"
+                        android:textColor="@color/button_Text_Color"
+                        android:text="@string/StartSay"/>
 
+                    <Button
+                        android:id="@+id/main_switch_say_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/alice_switch_say_button"/>
+
+                </RelativeLayout>
             </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
         </RelativeLayout>
-
-
-        <!--沉于最下面的布局-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/start_say"
-                    android:layout_width="200dp"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/button_End_Color"
-                    android:textColor="@color/button_Text_Color"
-                    android:text="@string/StartSay"/>
-
-                <Button
-                    android:id="@+id/main_switch_input_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/APP_Main_Back_Color"
-                    android:textColor="@color/button_Text_Color"
-                    android:text="切换"/>
-
-
-
-
-
-            </RelativeLayout>
-        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
