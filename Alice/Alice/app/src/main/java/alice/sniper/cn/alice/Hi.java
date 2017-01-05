@@ -15,7 +15,7 @@ import alice.sniper.cn.alice.Brain.Brain;
 import alice.sniper.cn.alice.Brain.BrainInterFace.BrainInterFace;
 import alice.sniper.cn.alice.ExternalTools.Animation.Animatiom;
 import alice.sniper.cn.alice.ExternalTools.Animation.AnimationOver;
-import alice.sniper.cn.alice.ExternalTools.Ｌｏｇｓ.Logger;
+import alice.sniper.cn.alice.ExternalTools.Logs.Logger;
 import alice.sniper.cn.alice.Hear.Hear;
 import alice.sniper.cn.alice.Hear.HearResult.Result;
 import alice.sniper.cn.alice.Thought.Thought;
