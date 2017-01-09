@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-
     defaultConfig {
-        applicationId "alice.sniper.cn.alice"
-        minSdkVersion 17
+        applicationId "cn.sniper.alice"
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -19,13 +17,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets{
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    testCompile 'junit:junit:4.12'
+
     /**
      *  toggle button 第三方开关控件
      */
@@ -36,8 +42,7 @@ dependencies {
      */
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
 
+
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile files('src/main/jniLibs/Msc.jar')
-    compile files('src/main/jniLibs/Sunflower.jar')
 }
