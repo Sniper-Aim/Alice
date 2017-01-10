@@ -14,25 +14,25 @@ public class Logger {
     /**
      *  Log开关
      */
-    public static boolean ISDEBUG;
+    public static boolean IS_DEBUG = true;
 
     /**
      * 正常模式打印语句
      */
-    public static void i(String Icontent){
-        if(ISDEBUG) Log.i(stacks[1].getClassName()+stacks[1].getMethodName()+"("+stacks[1].getLineNumber()+")",Icontent);
+    public static void i(String iContent){
+        if(IS_DEBUG) Log.i(stacks[1].getClassName() + stacks[1].getMethodName() + "("+stacks[1].getLineNumber() + ")", iContent);
     }
     /**
      *  debug模式打印语句
      */
-    public static void d(String Dcontent){
-        if(ISDEBUG) Log.i(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", Dcontent);
+    public static void d(String dContent){
+        if(IS_DEBUG) Log.d(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", dContent);
     }
     /**
      * error时打印语句
      */
-    public static void e(String Econtent){
-        if(ISDEBUG) Log.i(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", Econtent);
+    public static void e(String eContent){
+        if(IS_DEBUG) Log.e(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", eContent);
     }
 
 }

@@ -5,9 +5,8 @@ package cn.sniper.alice.Thought;
  */
 
 
-import android.util.Log;
-
 import cn.sniper.alice.Brain.BrainInterFace.BrainInterFace;
+import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.Hear.HearResult.HearResult;
 
 /**
@@ -44,7 +43,7 @@ public class Thought extends Thread{
                     /**
                      * 打印一次结果
                      */
-                    Log.e(TAG, "" + HearResult.getResult());
+                    Logger.i(HearResult.getResult().toString());
 
                     /**
                      * 将结果传递到需要的地方 TODO 这个结果来自用户的口述, 需要分析后给出合理的状态和答案
@@ -59,7 +58,7 @@ public class Thought extends Thread{
                 Thread.sleep(500);
             }
         } catch (InterruptedException e) {
-            Log.e(TAG,"思想线程错误");
+            Logger.i("思想线程错误");
             e.printStackTrace();
         }
     }
