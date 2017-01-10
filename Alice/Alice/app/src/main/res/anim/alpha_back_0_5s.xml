@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<set xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--<alpha-->
+        <!--android:duration="500"-->
+        <!--android:fromAlpha="0.0"-->
+        <!--android:toAlpha="1.0"-->
+        <!--/>-->
+    <!--&lt;!&ndash;-->
+            <!--fromAlpha 属性为动画起始时透明度-->
+            <!--toAlpha   属性为动画结束时透明度-->
+                <!--0.0表示完全透明-->
+                <!--1.0表示完全不透明-->
+            <!--duration  属性为动画持续时间-->
+    <!--&ndash;&gt;-->
+<!--</set>-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:shareInterpolator="false">
+    <!-- 退出动画效果  从可以看见到不可以看见，也就是1.0到0，变幻时间为5000毫秒-->
     <alpha
-        android:duration="500"
-        android:fromAlpha="0.0"
-        android:toAlpha="1.0"
+        android:fromAlpha="1.0"
+        android:toAlpha="0"
+        android:duration="5000"
         />
-    <!--
-            fromAlpha 属性为动画起始时透明度
-            toAlpha   属性为动画结束时透明度
-                0.0表示完全透明
-                1.0表示完全不透明
-            duration  属性为动画持续时间
-    -->
 </set>
