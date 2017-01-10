@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import alice.sniper.cn.alice.Hear.HearResult.Result;
@@ -16,7 +17,7 @@ import alice.sniper.cn.alice.Setting.SettingActivity.SettingActivity;
  *
  * Created by pei_song on 2016/12/21.
  */
-public abstract class Brain extends Activity{
+public abstract class Brain extends FragmentActivity {
 
     private static String TAG = "Brain";
 
@@ -56,43 +57,6 @@ public abstract class Brain extends Activity{
      */
     public Context alice = this;
 
-    /**
-     * Handler 主要的消息处理部分
-     */
-    public Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-
-            /**
-             * 解析序列化对象结果并还原成为封装好的结果类型
-             */
-            Result result = getMsgState(msg);
-
-            /**
-             * 根据不同的消息请求状态来执行不同的操作
-             */
-            switch (result.getState()){
-                /**  默认  */
-                case MSG_STATE:
-                    break;
-
-                /**  说话  */
-                case SAY_TOAST:
-                    if (result.getValues().equals("设置。")){
-                        Intent intent = new Intent(alice, SettingActivity.class);
-                        startActivity(intent);
-                    }
-
-                    Toast.makeText(alice, result.getValues(),Toast.LENGTH_LONG).show();
-                    break;
-
-                /**  跳转  */
-                case INTENT_PACKAGE_NAME:
-
-                    break;
-            }
-        }
-    };
 
     /**
      * 得到结果集
@@ -105,17 +69,5 @@ public abstract class Brain extends Activity{
         return result;
     }
 
-    /**
-     * 提供一个对外的消息类型, 对外需要遵循这个类型给我传递参数, 这个类型最终将传递给本类的Handler进行处理
-     * @param key
-     * @param result
-     * @return
-     */
-    public Message msg(String key, Result result){
-        Message msg= new Message();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(key, result);
-        msg.setData(bundle);
-        return msg;
-    }
+
 }
