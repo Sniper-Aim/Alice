@@ -2,7 +2,6 @@ package cn.sniper.alice.Hear;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -12,6 +11,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 
 import cn.sniper.alice.ExternalTools.JsonAnalytic.JsonTools;
+import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.Hear.HearResult.HearResult;
 
 
@@ -100,7 +100,7 @@ public class Hear {
         public void onResult(RecognizerResult results, boolean isLast) {
             HearResult.setResult(JsonTools.getJsonStr(results.getResultString()));
             HearResult.setIsResult(isLast);
-            Log.e(TAG, HearResult.getResult().toString());
+            Logger.e(HearResult.getResult().toString());
         }
 
         /**

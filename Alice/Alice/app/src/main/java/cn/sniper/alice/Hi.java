@@ -1,5 +1,6 @@
 package cn.sniper.alice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ import cn.sniper.alice.ExternalTools.Animation.AnimationOver;
 import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.Hear.Hear;
 import cn.sniper.alice.Hear.HearResult.Result;
+import cn.sniper.alice.Setting.SettingActivity.SettingActivity;
 import cn.sniper.alice.Thought.Thought;
 
 
@@ -309,6 +311,7 @@ public class Hi extends Brain {
         /*  初始化操作  */
         initView();
         setEvent();
+        test();
     }
 
     @Override
@@ -330,5 +333,7 @@ public class Hi extends Brain {
     }
 
     public void test(){
+        Intent intent = new Intent(alice, SettingActivity.class);
+        startActivity(intent);
     }
 }
