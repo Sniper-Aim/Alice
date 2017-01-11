@@ -1,11 +1,11 @@
 package cn.sniper.alice.Brain;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import cn.sniper.alice.Hear.HearResult.Result;
@@ -17,7 +17,7 @@ import cn.sniper.alice.Setting.SettingActivity.SettingActivity;
  *
  * Created by pei_song on 2016/12/21.
  */
-public abstract class Brain extends Activity{
+public abstract class Brain extends FragmentActivity {
 
     private static String TAG = "Brain";
 
@@ -74,8 +74,8 @@ public abstract class Brain extends Activity{
              */
             switch (result.getState()){
                 /**  默认  */
-//                case MSG_STATE:
-//                    break;
+                case MSG_STATE:
+                    break;
 
                 /**  说话  */
                 case SAY_TOAST:
@@ -106,17 +106,5 @@ public abstract class Brain extends Activity{
         return result;
     }
 
-    /**
-     * 提供一个对外的消息类型, 对外需要遵循这个类型给我传递参数, 这个类型最终将传递给本类的Handler进行处理
-     * @param key
-     * @param result
-     * @return
-     */
-    public Message msg(String key, Result result){
-        Message msg= new Message();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(key, result);
-        msg.setData(bundle);
-        return msg;
-    }
+
 }
