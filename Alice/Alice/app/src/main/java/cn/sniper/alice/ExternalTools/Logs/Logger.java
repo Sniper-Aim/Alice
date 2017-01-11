@@ -20,19 +20,25 @@ public class Logger {
      * 正常模式打印语句
      */
     public static void i(String iContent){
-        if(IS_DEBUG) Log.i(stacks[1].getClassName() + stacks[1].getMethodName() + "("+stacks[1].getLineNumber() + ")", iContent);
+        if(IS_DEBUG) Log.i(" -> " + stacks[1].getFileName().substring(0, stacks[1].getFileName().length() - 5) +
+                " : " + stacks[1].getMethodName() +
+                " ("+stacks[1].getLineNumber() + ") ", iContent);
     }
     /**
      *  debug模式打印语句
      */
     public static void d(String dContent){
-        if(IS_DEBUG) Log.d(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", dContent);
+        if(IS_DEBUG) Log.d(" -> " + stacks[1].getFileName().substring(0, stacks[1].getFileName().length() - 5) +
+                " : " + stacks[1].getMethodName() +
+                " ("+stacks[1].getLineNumber() + ") ", dContent);
     }
     /**
      * error时打印语句
      */
     public static void e(String eContent){
-        if(IS_DEBUG) Log.e(stacks[1].getClassName() + stacks[1].getMethodName() + "(" + stacks[1].getLineNumber() + ")", eContent);
+        if(IS_DEBUG) Log.e(" -> " + stacks[1].getFileName().substring(0, stacks[1].getFileName().length() - 5) +
+                " : " + stacks[1].getMethodName() +
+                " ("+stacks[1].getLineNumber() + ") ", eContent);
     }
 
 }
