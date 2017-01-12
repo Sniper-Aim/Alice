@@ -16,7 +16,7 @@ public class JPush {
      * 开启JPush 传入上下文参数
      * @param context
      */
-    public static void startJPush(Context context){
+    public static void startJPush(Context context, Boolean isDebug){
         cn.sniper.jpush.JPush.getInstance(context, true);
     }
 
