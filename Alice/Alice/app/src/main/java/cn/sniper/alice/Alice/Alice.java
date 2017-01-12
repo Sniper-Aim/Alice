@@ -49,9 +49,6 @@ public abstract class Alice {
 
 
 
-
-
-
     /**=================== Get and Set =================*/
 
     public String getName() {

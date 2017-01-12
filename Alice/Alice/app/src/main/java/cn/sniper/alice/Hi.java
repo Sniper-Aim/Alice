@@ -1,5 +1,6 @@
 package cn.sniper.alice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -13,8 +14,8 @@ import cn.sniper.alice.Brain.AliceTouchManager.AliceTouchManager;
 import cn.sniper.alice.Brain.AliceTouchManager.View.TouchView;
 import cn.sniper.alice.Brain.Brain;
 import cn.sniper.alice.Brain.BrainView.Adapter.FragmentAdapter.HiFragmentAdapter;
+import cn.sniper.alice.Brain.BrainViews.ChatActivity;
 import cn.sniper.alice.Brain.BrainViews.HiViewPager;
-import cn.sniper.alice.ExternalTools.JPush.JPush;
 
 
 /**
@@ -45,6 +46,10 @@ public class Hi extends Brain implements View.OnClickListener{
      */
     private Button speak_btn;
     private Button write_btn;
+    private Button test1;
+    private Button test2;
+    private Button test3;
+    private Button test4;
 
     /**
      * 初始化操作
@@ -56,6 +61,11 @@ public class Hi extends Brain implements View.OnClickListener{
 
         speak_btn= (Button) findViewById(R.id.speak_btn);
         write_btn= (Button) findViewById(R.id.write_btn);
+
+        test1 = (Button) findViewById(R.id.test1);
+        test2 = (Button) findViewById(R.id.test2);
+        test3 = (Button) findViewById(R.id.test3);
+        test4 = (Button) findViewById(R.id.test4);
     }
 
     /**
@@ -74,10 +84,6 @@ public class Hi extends Brain implements View.OnClickListener{
          */
         fragmentAdapter = new HiFragmentAdapter(getSupportFragmentManager());
 
-        /**
-         * 启动JPush
-         */
-        JPush.startJPush(alice);
     }
 
     /**
@@ -86,6 +92,11 @@ public class Hi extends Brain implements View.OnClickListener{
     private void initEvent(){
         speak_btn.setOnClickListener(this);
         write_btn.setOnClickListener(this);
+        test1.setOnClickListener(this);
+        test2.setOnClickListener(this);
+        test3.setOnClickListener(this);
+        test4.setOnClickListener(this);
+
         viewPager.setOffscreenPageLimit(ViewPageLimit);
         viewPager.setAdapter(fragmentAdapter);
 
@@ -103,6 +114,24 @@ public class Hi extends Brain implements View.OnClickListener{
                 Toast.makeText(this, "写字", Toast.LENGTH_SHORT).show();
                 viewPager.setCurrentItem(1);
                 break;
+
+
+
+
+            case R.id.test1:
+                Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(alice, ChatActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.test2:
+                Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.test3:
+                Toast.makeText(this, "test3", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.test4:
+                Toast.makeText(this, "test4", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -113,13 +142,14 @@ public class Hi extends Brain implements View.OnClickListener{
         setContentView(R.layout.activity_alice);
 
         /*  设置Alice已经启动  */
-        Alice.setISRUN(true);
-//        initAnimation();
+
+
+
         /*  初始化操作  */
         initView();
         initData();
         initEvent();
-        test();
+//        test();
     }
 
     @Override
@@ -143,5 +173,6 @@ public class Hi extends Brain implements View.OnClickListener{
     public void test(){
         AliceTouchManager aliceTouch = AliceTouchManager.getAliceTouch(alice);
         aliceTouch.addView(TouchView.getTouchView(alice));
+
     }
 }

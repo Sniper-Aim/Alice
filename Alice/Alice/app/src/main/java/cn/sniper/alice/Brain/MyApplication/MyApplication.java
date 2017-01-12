@@ -3,8 +3,10 @@ package cn.sniper.alice.Brain.MyApplication;
 import android.app.Application;
 import android.view.WindowManager;
 
+import cn.sniper.alice.ExternalTools.JPush.JPush;
+
 /**
- * Created by peisong on 2017/1/11.
+ * Created by pei song on 2017/1/11.
  */
 
 public class MyApplication extends Application{
@@ -16,6 +18,7 @@ public class MyApplication extends Application{
      * 注意在AndroidManifest.xml中的Application节点添加android:name=".MyApplication"属性
      *
      */
+
     private WindowManager.LayoutParams wmParams=new WindowManager.LayoutParams();
 
 
@@ -23,4 +26,9 @@ public class MyApplication extends Application{
         return wmParams;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        JPush.startJPush(this, true);
+    }
 }
