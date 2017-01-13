@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-public class HiViewPager extends ViewPager {
-    private boolean noScroll = false;
+public class ChatViewPager extends ViewPager {
+    private boolean noScroll = true;
     private Context context;
     
     @Override
@@ -17,14 +17,14 @@ public class HiViewPager extends ViewPager {
 		super.setOffscreenPageLimit(limit);
 	}
 
-	public HiViewPager(Context context, AttributeSet attrs) {
+	public ChatViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         // TODO Auto-generated constructor stub
     }
 
 
-    public HiViewPager(Context context) {
+    public ChatViewPager(Context context) {
         super(context);
         this.context = context;
     }

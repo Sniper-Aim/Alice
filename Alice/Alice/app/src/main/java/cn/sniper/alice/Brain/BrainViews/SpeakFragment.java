@@ -2,7 +2,6 @@ package cn.sniper.alice.Brain.BrainViews;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +17,7 @@ import cn.sniper.jpush.AUser.AUser;
  * Created by Lisa on 2017/1/5.
  */
 
-public class SpeakFragment extends Fragment{
+public class SpeakFragment extends BaseFragment{
 
     /**
      * 开始说话按钮
@@ -39,7 +38,6 @@ public class SpeakFragment extends Fragment{
     /**
      * Fragment rootView对象
      */
-    private View rootView;
 
     private static SpeakFragment speakFragment;
 
@@ -85,12 +83,12 @@ public class SpeakFragment extends Fragment{
                 if (or) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         start_say_tex.setText(R.string.EndSay);
-//                        startSay();
+                        startSay();
                     }
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         start_say_tex.setText(R.string.StartSay);
-//                        stopSay();
+                        stopSay();
                         AUser.getInstance(getContext()).login("13020285800","123456");
 
                         or = false;
@@ -119,11 +117,9 @@ public class SpeakFragment extends Fragment{
         hear.stop();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.speak_fragment,container,false);
-        return rootView;
+    public View createRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.speak_fragment, container, false);
     }
 
     @Override

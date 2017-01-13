@@ -1,8 +1,6 @@
 package cn.sniper.alice.Brain.BrainViews;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +10,17 @@ import cn.sniper.alice.R;
 /**
  * Created by Lisa on 2017/1/5.
  */
-public class WriteFragment extends Fragment{
+public class WriteFragment extends BaseFragment{
 
     public WriteFragment(){}
 
     private static WriteFragment writeFragment;
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.write_fragment, container, false);
     }
-
 
 
     /**
