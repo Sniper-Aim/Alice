@@ -69,13 +69,6 @@ public class Hi extends Brain implements View.OnClickListener{
     }
 
     /**
-     * 初始化动画
-     */
-   public void initAnimation(){
-
-   }
-
-    /**
      * 初始化数据
      */
     private void initData(){
@@ -99,7 +92,6 @@ public class Hi extends Brain implements View.OnClickListener{
 
         viewPager.setOffscreenPageLimit(ViewPageLimit);
         viewPager.setAdapter(fragmentAdapter);
-
     }
 
 
@@ -115,20 +107,20 @@ public class Hi extends Brain implements View.OnClickListener{
                 viewPager.setCurrentItem(1);
                 break;
 
-
-
-
             case R.id.test1:
                 Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(alice, ChatActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.test2:
                 Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.test3:
                 Toast.makeText(this, "test3", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.test4:
                 Toast.makeText(this, "test4", Toast.LENGTH_SHORT).show();
                 break;
