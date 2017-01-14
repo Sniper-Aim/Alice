@@ -11,10 +11,10 @@
 
     <!--</cn.sniper.alice.Brain.BrainViews.ChatMsgListView>-->
 
-    <ListView
+    <cn.sniper.alice.Brain.BrainViews.ChatMsgListView
         android:id="@+id/Chat_ListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"></cn.sniper.alice.Brain.BrainViews.ChatMsgListView>
 
 
 </LinearLayout>

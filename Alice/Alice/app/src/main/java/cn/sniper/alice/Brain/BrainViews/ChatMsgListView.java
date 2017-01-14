@@ -1,40 +1,76 @@
 package cn.sniper.alice.Brain.BrainViews;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import cn.sniper.alice.ExternalTools.Animation.Animatiom;
-import cn.sniper.alice.ExternalTools.Animation.AnimationOver;
 import cn.sniper.alice.ExternalTools.Logs.Logger;
+import cn.sniper.alice.R;
 
 /**
  * Created by peisong on 2017/1/12.
  */
 
-public class ChatMsgListView extends ListView {
+public class ChatMsgListView extends ListView{
 
-    private int mScreenWidth; // 屏幕宽度
-    private int mDownX; // 按下点的x值
-    private int mDownY; // 按下点的y值
 
-    private int moveSize;
-    private int itemy;
+    private Context context;
+    /**
+     * 按下的位置
+     */
+    private int downX;
+    private int downY;
+    /**
+     * 整个Item 包括所有
+     */
+    private View view;
+    private LinearLayout rootview;
 
-    private Boolean anisOver = true;
+    /**
+     * Item,  但是不包括隐藏按钮
+     * 否则会被一起滑动
+     */
+    private ScrollView scrollView;
 
-    private int mDeleteBtnWidth;// 删除按钮的宽度
+    /**
+     * 隐藏按钮
+     */
+    private TextView btn1;
+    private TextView btn2;
 
-    private boolean isDeleteShown; // 删除按钮是否正在显示
+    /**
+     * 隐藏按钮的大小
+     */
+    private int ButtonWidth;
 
-    private ViewGroup mPointChild; // 当前处理的item
+    /**
+     * 正在滑动的距离
+     */
+    private int move;
 
-    private LinearLayout.LayoutParams mLayoutParams; // 当前处理的item的LayoutParams
+    /**
+     * 松开后还要继续滑动的距离
+     */
+    private int nextMove;
+
+    private OnClickDelete onClickDelete;
+    private OnClickOKReName onClickOKReName;
+
+    private OnClickItem onClickItem;
+
+    private Boolean isAnimo = false;
+
+    private Boolean isexistBtn = false;
+
+    private OnClickListener onClickListener;
+    private OnClickListener onClickListeneritem;
 
     public ChatMsgListView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -42,125 +78,157 @@ public class ChatMsgListView extends ListView {
 
     public ChatMsgListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
-        // 获取屏幕宽度
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
-        mScreenWidth = dm.widthPixels;
+        this.context = context;
     }
+
+
+    public interface OnClickOKReName{
+        void OnClick(int i);
+    }
+    public interface OnClickDelete{
+        void OnClick(int i);
+    }
+    public interface OnClickItem{
+        void OnClick(int i);
+    }
+
+    public void setOnClick(OnClickOKReName onClick){
+        this.onClickOKReName = onClick;
+    }
+    public void setOnClick(OnClickDelete onClick){
+        this.onClickDelete = onClick;
+    }
+    public void setItemOnClick(OnClickItem onClick){
+        this.onClickItem = onClick;
+    }
+
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (anisOver) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (!isAnimo) {
             switch (ev.getAction()) {
+
                 case MotionEvent.ACTION_DOWN:
-                    performActionDown(ev);
+                    //如果当前存在按钮的话就先判断是不是点击了按钮
+                    Logger.e("点击的"+ev.getX()+"---"+ev.getY());
+
+                    downX = (int) ev.getX();
+                    downY = (int) ev.getY();
+
+                    view = getChildAt((pointToPosition(downX, downY) - getFirstVisiblePosition()));
+
+                    rootview = (LinearLayout) view.findViewById(R.id.chat_listview_layout_);
+
+                    btn1 = (TextView) view.findViewById(R.id.btn1);
+                    btn1.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onClickDelete.OnClick(getPositionForView(view));
+                        }
+                    });
+                    btn2 = (TextView) view.findViewById(R.id.btn2);
+                    btn2.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onClickOKReName.OnClick(getPositionForView(view));
+
+                        }
+                    });
+
+
+                    scrollView = (ScrollView) view.findViewById(R.id.scrollview);
+
+                    ButtonWidth = btn1.getWidth();
+                    Logger.e("ACTION_DOWN: " + ev.getX() + "-" + ev.getY() + "--------" + scrollView.getX() + ":" + scrollView.getY());
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    int upx = (int) ev.getX();
+                    int upy = (int) ev.getY();
+
+                    if (Math.abs(move) > ButtonWidth) {
+                        nextMove = (ButtonWidth * 2) - Math.abs(move);
+                        open();
+                    } else {
+                        close();
+                    }
+                    Logger.e("ACTION_UP: " + ev.getX() + "--"+downX+"--"+downY+"---" + ev.getY());
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    return performActionMove(ev);
-                case MotionEvent.ACTION_UP:
-                    performActionUp();
+                    if (downX > ev.getX()) {
+                        move = (int) ev.getX() - downX;
+                        if (Math.abs(move) < ButtonWidth * 2)
+                            scrollView.setX(move);
+                        Logger.e("ACTION_MOVE: " + ev.getX() + "-" + ev.getY());
+                    }
+                    return false;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    if (scrollView.getX() >= -(ButtonWidth *2)) {
+                        scrollView.setX(scrollView.getX() - 1);
+                    }else {
+                        move = 0;
+                        isAnimo = false;
+                        isexistBtn = true;
+                    }
+                    break;
+
+                case 1:
+                    if (scrollView.getX() <= -1) {
+                        scrollView.setX(scrollView.getX() + 1);
+                    }else {
+                        isAnimo = false;
+                        isexistBtn = false;
+                    }
                     break;
             }
         }
-        return super.onTouchEvent(ev);
-    }
+    };
 
-    // 处理action_down事件
-    private void performActionDown(MotionEvent ev) {
-        if(isDeleteShown) {
-            turnToNormal();
-        }
-
-        mDownX = (int) ev.getX();
-        mDownY = (int) ev.getY();
-
-        // 获取当前点的item
-        mPointChild = (ViewGroup) getChildAt(pointToPosition(mDownX, mDownY) - getFirstVisiblePosition());
-
-        // 获取删除按钮的宽度
-        mDeleteBtnWidth = mPointChild.getChildAt(1).getLayoutParams().width;
-
-        mLayoutParams = (LinearLayout.LayoutParams) mPointChild.getChildAt(0)
-                .getLayoutParams();
-        mLayoutParams.width = mScreenWidth;
-
-        mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
-    }
-
-    // 处理action_move事件
-    private boolean performActionMove(MotionEvent ev) {
-        int nowX = (int) ev.getX();
-        int nowY = (int) ev.getY();
-        if(Math.abs(nowX - mDownX) > Math.abs(nowY - mDownY)) {
-            // 如果向左滑动
-            if(nowX < mDownX) {
-                // 计算要偏移的距离
-                int scroll = (nowX - mDownX) / 2;
-                // 如果大于了删除按钮的宽度， 则最大为删除按钮的宽度
-                if(-scroll >= mDeleteBtnWidth) {
-                    scroll = -mDeleteBtnWidth;
-                }
-                // 重新设置leftMargin
-                mLayoutParams.leftMargin = scroll*2;
-                mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
-            }
-            return true;
-        }
-        return super.onTouchEvent(ev);
-    }
-
-    // 处理action_up事件
-    private void performActionUp() {
-        // 偏移量大于button的一半，则显示button
-        // 否则恢复默认
-        if(-mLayoutParams.leftMargin >= mDeleteBtnWidth) {
-            Logger.e("拉出了距离"+mLayoutParams.leftMargin +"==="+ mDeleteBtnWidth);
-
-            anisOver = false;
-            Animatiom.MoveView(mPointChild, 0, 0, 0, 0, new AnimationOver.Over() {
-                @Override
-                public void over() {
-                    mLayoutParams.leftMargin = -mDeleteBtnWidth*2;
-                    isDeleteShown = true;
-                    mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
-                    anisOver = true;
-                }
-            });
-
-        }else {
-            turnToNormal();
-        }
-
-    }
-
-    /**
-     * 变为正常状态
-     */
-    public void turnToNormal() {
-        anisOver = false;
-        moveSize = (Math.abs(mLayoutParams.leftMargin));
-        Logger.e("没有拉出距离"+mLayoutParams.leftMargin +"=="+moveSize+"=="+ mDeleteBtnWidth);
-
-        Animatiom.MoveView(mPointChild, 0, moveSize, 0, 0, new AnimationOver.Over() {
+    private void open(){
+        isAnimo = true;
+        new Thread(){
             @Override
-            public void over() {
-                mLayoutParams.leftMargin = 0;
-                mPointChild.getChildAt(0).setLayoutParams(mLayoutParams);
-                isDeleteShown = false;
-                anisOver = true;
+            public void run() {
+                while (isAnimo) {
+                    try {
+                        Message message0 = new Message();
+                        message0.what = 0;
+                        handler.sendMessage(message0);
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        });
-
+        }.start();
     }
 
-    /**
-     * 当前是否可点击
-     * @return 是否可点击
-     */
-    public boolean canClick() {
-        return !isDeleteShown;
+    private void close(){
+        isAnimo = true;
+        new Thread(){
+            @Override
+            public void run() {
+                while (isAnimo) {
+                    try {
+                        Message message1 = new Message();
+                        message1.what = 1;
+                        handler.sendMessage(message1);
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
-
 }

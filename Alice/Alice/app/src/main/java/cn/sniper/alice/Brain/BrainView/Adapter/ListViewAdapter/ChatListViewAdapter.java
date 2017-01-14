@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -60,20 +59,10 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
         if (view == null){
             holder = new ViewHolder();
             view = mInflater.inflate(R.layout.chat_listview_item_layout, null);
-            holder.scrollView = (ScrollView) view.findViewById(R.id.scrollview);
-            holder.linearLayout = (LinearLayout) view.findViewById(R.id.Chat_ListView_layout);
-            holder.btn1 = (Button) view.findViewById(R.id.btn1);
-            holder.user_nick_name_text = (TextView) view.findViewById(R.id.user_nick_name_text);
-
-
             view.setTag(holder);
         }else{
             holder = (ViewHolder) view.getTag();
         }
-
-
-
-        holder.scrollView.setOnTouchListener(onTouchListener);
 
         return view;
     }
@@ -91,7 +80,7 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
         public ScrollView scrollView;
         public TextView user_nick_name_text;
         public LinearLayout linearLayout;
-        public Button btn1;
+        public TextView btn1;
     }
 
 

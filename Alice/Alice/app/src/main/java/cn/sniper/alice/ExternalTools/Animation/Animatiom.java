@@ -79,7 +79,7 @@ public class Animatiom {
      */
     public static void MoveView(View v, float fromXDelta, float toXDelta,float fromYDelta, float toYDelta, AnimationOver.Over over){
         animation = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);
-        animation.setDuration(2000);
+        animation.setDuration(300);
         v.startAnimation(animation);
         if (over != null)
             Evnet(animation, over);

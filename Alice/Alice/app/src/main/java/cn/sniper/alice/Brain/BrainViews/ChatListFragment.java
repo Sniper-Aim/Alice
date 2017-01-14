@@ -1,13 +1,12 @@
 package cn.sniper.alice.Brain.BrainViews;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,7 @@ public class ChatListFragment extends BaseFragment {
 
     private static ChatListFragment chatListFragment;
 
-    private ChatMsgListView chatListView;
-
-    private ListView listView;
+    private ChatMsgListView listView;
 
     private ChatListViewAdapter chatListViewAdapter;
 
@@ -34,14 +31,19 @@ public class ChatListFragment extends BaseFragment {
 
     List<String> list = new ArrayList<>();
 
+    private int x = 0;
+    private int y = 0;
+
+    private int downx;
+    private int downy;
+
+    private  Boolean isleft;
+
     /**
      * 初始化布局
      */
     private void initView(){
-//        chatListView = (ChatMsgListView) rootView.findViewById(R.id.Chat_ListView);
-        listView = (ListView) rootView.findViewById(R.id.Chat_ListView);
-
-
+        listView = (ChatMsgListView) rootView.findViewById(R.id.Chat_ListView);
 
         list.add("1");
         list.add("1");
@@ -57,6 +59,8 @@ public class ChatListFragment extends BaseFragment {
      * 初始化数据
      */
     private void initData(){
+        windowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+
         chatListViewAdapter = new ChatListViewAdapter(list, mContext);
     }
 
@@ -64,25 +68,30 @@ public class ChatListFragment extends BaseFragment {
      * 初始化事件
      */
     private void initEvent(){
-//        chatListView.setAdapter(chatListViewAdapter);
         listView.setAdapter(chatListViewAdapter);
 
-        chatListViewAdapter.setOnTouch(new View.OnTouchListener() {
+        listView.setOnClick(new ChatMsgListView.OnClickOKReName() {
             @Override
-            public boolean onTouch(View view, MotionEvent ev) {
-                switch (ev.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        view.scrollTo((int)ev.getX() ,0);
-                        Logger.e(ev.getX()+"");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
-                }
-                return false;
+            public void OnClick(int i) {
+                Logger.e("点击了备注"+i);
             }
         });
+
+        listView.setOnClick(new ChatMsgListView.OnClickDelete() {
+            @Override
+            public void OnClick(int i) {
+                Logger.e("点击了删除"+i);
+            }
+        });
+
+
+        listView.setItemOnClick(new ChatMsgListView.OnClickItem() {
+            @Override
+            public void OnClick(int i) {
+                Logger.e("点击了第"+i+"个Item");
+            }
+        });
+
     }
 
     @Override

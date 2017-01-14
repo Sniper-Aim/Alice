@@ -2,18 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/Chat_ListView_Item_layout"
     android:layout_centerInParent="true">
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="按钮"/>
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="按钮"/>
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="#ffffff"
+            android:id="@+id/btn2"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:textColor="@color/text_Color"
+            android:textSize="20dp"
+            android:text="备注"/>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/text_Color"
+            android:textSize="20dp"
+            android:background="#ff0303"
+            android:id="@+id/btn1"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:text="删除"
+             />
+    </LinearLayout>
+
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -25,7 +43,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="700dp"
+                android:id="@+id/chat_listview_layout_"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
@@ -33,16 +52,10 @@
                     android:background="#001122"
                     android:id="@+id/user_nick_name_text"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     android:textSize="20dp"
-                    android:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
-
-
+                    android:text="哈哈哈哈哈哈哈哈"/>
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
-
-
 </RelativeLayout>
