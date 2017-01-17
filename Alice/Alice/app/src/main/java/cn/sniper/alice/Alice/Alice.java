@@ -1,14 +1,36 @@
 package cn.sniper.alice.Alice;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.jpush.im.android.api.model.UserInfo;
+
 /**
  * Alice模型类, 封装Alice的各种属性.
  */
-public abstract class Alice {
+public class Alice {
+
+    private static Alice alice;
+
+    /**
+     * Alice的ID
+     */
+    private String id = "";
 
     /**
      * Alice的名字.
      */
     private String name = "Alice";
+
+    /**
+     * Alice的签名
+     */
+    private String signature = "";
+
+    /**
+     * Alice的地址
+     */
+    private String address = "上海";
 
     /**
      * Alice的性别.
@@ -47,9 +69,20 @@ public abstract class Alice {
 
     }
 
+    private List<UserInfo> userList = new ArrayList<>();
+
+
 
 
     /**=================== Get and Set =================*/
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -57,6 +90,14 @@ public abstract class Alice {
 
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public String getSex() {
@@ -105,5 +146,28 @@ public abstract class Alice {
 
     public static void setISRUN(Boolean ISRUN) {
         Alice.isRUN = ISRUN;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<UserInfo> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<UserInfo> userList) {
+        this.userList = userList;
+    }
+
+    public static Alice getInstance() {
+        if (alice == null) {
+            alice = new Alice();
+        }
+        return alice;
     }
 }

@@ -1,6 +1,6 @@
 <resources>
 
-
+<!--Hi-->
     <!--  Hi  Activity  -->
 
     <!--APP名字-->
@@ -18,13 +18,41 @@
     <!--输入对话内容-->
     <string name="alice_edit_hint">输入对话内容</string>
 
-
-
     <!--  Setting  Activity  -->
     <string name="Setting_Dialog_Prompt_Title">设置页Dialog提示语</string>
 
-
     <string name="Setting_Dialog_Prompt_Text">提示内容</string>
+
+
+<!--Chat-->
+
+    <!--Chat Activity-->
+    <string name="user_name">id</string>
+
+    <string name="user_autograph">签名</string>
+
+    <!--Conversation Activity-->
+    <string name="send_out">发送</string>
+
+
+
+
+<!--User-->
+    <!--Sign in-->
+    <string name="sign_in_title">登    录</string>
+
+    <string name="sign_in_username_hint"> 输入手机号/用户名</string>
+    <string name="sign_in_password_hint"> 输入密码</string>
+    
+    <string name="sign_in_checkbox"> 保存密码</string>
+    <string name="sign_in_forget_password">忘记/修改密码?</string>
+
+    <string name="sign_in_new_user">还没有帐号? 注册帐号!</string>
+
+    <string name="sign_in_button">登      录</string>
+
+
+
 
 
 

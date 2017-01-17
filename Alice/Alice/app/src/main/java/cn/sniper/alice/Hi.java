@@ -14,8 +14,11 @@ import cn.sniper.alice.Brain.AliceTouchManager.AliceTouchManager;
 import cn.sniper.alice.Brain.AliceTouchManager.View.TouchView;
 import cn.sniper.alice.Brain.Brain;
 import cn.sniper.alice.Brain.BrainView.Adapter.FragmentAdapter.HiFragmentAdapter;
-import cn.sniper.alice.Brain.BrainViews.ChatActivity;
+import cn.sniper.alice.Brain.BrainViews.Chat.ChatActivity;
 import cn.sniper.alice.Brain.BrainViews.HiViewPager;
+import cn.sniper.alice.Brain.BrainViews.User.SignActivity;
+import cn.sniper.alice.ExternalTools.JPush.UserManager;
+import cn.sniper.alice.ExternalTools.LocalStorage.SharedPreference;
 
 
 /**
@@ -24,6 +27,14 @@ import cn.sniper.alice.Brain.BrainViews.HiViewPager;
 public class Hi extends Brain implements View.OnClickListener{
     private static String TAG = "Hi";
 
+    private UserManager userManager;
+
+
+    /**
+     * Alice对象
+     */
+
+    private Alice alices;
     /**
      * Fragment适配器
      */
@@ -33,6 +44,11 @@ public class Hi extends Brain implements View.OnClickListener{
      * Alice的主要开关
      */
     private ToggleButton open_btn;
+
+    /**
+     * SharedPreference sharedPreferences;
+     */
+    private SharedPreference sharedPreferences;
 
     /**
      * 主页ViewPage, 包含切换的Fragment
@@ -77,6 +93,9 @@ public class Hi extends Brain implements View.OnClickListener{
          */
         fragmentAdapter = new HiFragmentAdapter(getSupportFragmentManager());
 
+        alices = Alice.getInstance();
+
+
     }
 
     /**
@@ -94,6 +113,22 @@ public class Hi extends Brain implements View.OnClickListener{
         viewPager.setAdapter(fragmentAdapter);
     }
 
+    private void initRun(){
+        sharedPreferences = SharedPreference.getInstance(alice);
+        String id = sharedPreferences.readStr(SharedPreference.FileName.SAVE_USERNAME.name(), "" + 0);
+        if (id != null){
+            String pwd = sharedPreferences.readStr(SharedPreference.FileName.SAVE_PASSWORD.name(), id);
+            if (pwd != null) {
+                Alice.setISRUN(true);
+            }else{
+                Intent intent4 = new Intent(alice, SignActivity.class);
+                startActivity(intent4);
+            }
+        }else{
+            Intent intent4 = new Intent(alice, SignActivity.class);
+            startActivity(intent4);
+        }
+    }
 
     @Override
     public void onClick(View view) {
@@ -114,15 +149,18 @@ public class Hi extends Brain implements View.OnClickListener{
                 break;
 
             case R.id.test2:
-                Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "好友列表", Toast.LENGTH_SHORT).show();
+                userManager.getFriendList();
                 break;
 
             case R.id.test3:
-                Toast.makeText(this, "test3", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "申请加好友", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.test4:
-                Toast.makeText(this, "test4", Toast.LENGTH_SHORT).show();
+                Intent intent4 = new Intent(alice, SignActivity.class);
+                startActivity(intent4);
+                Toast.makeText(this, "登录", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -134,12 +172,12 @@ public class Hi extends Brain implements View.OnClickListener{
         setContentView(R.layout.activity_alice);
 
         /*  设置Alice已经启动  */
-
-
+        userManager = UserManager.getInstance(alice);
 
         /*  初始化操作  */
         initView();
         initData();
+        initRun();
         initEvent();
 //        test();
     }

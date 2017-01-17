@@ -1,4 +1,4 @@
-package cn.sniper.alice.Brain.BrainViews;
+package cn.sniper.alice.Brain.BrainViews.Chat;
 
 import android.content.Context;
 import android.os.Handler;
@@ -12,7 +12,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import cn.sniper.alice.ExternalTools.Logs.Logger;
-import cn.sniper.alice.R;
 
 /**
  * Created by peisong on 2017/1/12.
@@ -114,30 +113,6 @@ public class ChatMsgListView extends ListView{
 
                     downX = (int) ev.getX();
                     downY = (int) ev.getY();
-
-                    view = getChildAt((pointToPosition(downX, downY) - getFirstVisiblePosition()));
-
-                    rootview = (LinearLayout) view.findViewById(R.id.chat_listview_layout_);
-
-                    btn1 = (TextView) view.findViewById(R.id.btn1);
-                    btn1.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onClickDelete.OnClick(getPositionForView(view));
-                        }
-                    });
-                    btn2 = (TextView) view.findViewById(R.id.btn2);
-                    btn2.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onClickOKReName.OnClick(getPositionForView(view));
-
-                        }
-                    });
-
-
-                    scrollView = (ScrollView) view.findViewById(R.id.scrollview);
-
                     ButtonWidth = btn1.getWidth();
                     Logger.e("ACTION_DOWN: " + ev.getX() + "-" + ev.getY() + "--------" + scrollView.getX() + ":" + scrollView.getY());
                     break;

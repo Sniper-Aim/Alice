@@ -59,7 +59,9 @@
 
 
         <activity android:name=".Setting.SettingActivity.SettingActivity" />
-        <activity android:name=".Brain.BrainViews.ChatActivity" />
+        <activity android:name=".Brain.BrainViews.Chat.ChatActivity" />
+        <activity android:name=".Brain.BrainViews.Chat.ConversationActivity"/>
+        <activity android:name=".Brain.BrainViews.User.SignActivity"/>
     </application>
 
 

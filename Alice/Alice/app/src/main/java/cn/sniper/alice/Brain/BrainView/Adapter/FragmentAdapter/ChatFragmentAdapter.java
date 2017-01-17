@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import cn.sniper.alice.Brain.BrainViews.ChatListFragment;
-import cn.sniper.alice.Brain.BrainViews.GroupListFragment;
+import cn.sniper.alice.Brain.BrainViews.Chat.ChatListFragment;
+import cn.sniper.alice.Brain.BrainViews.Chat.GroupListFragment;
 
 /**
  * Created by Lisa on 2017/1/5.

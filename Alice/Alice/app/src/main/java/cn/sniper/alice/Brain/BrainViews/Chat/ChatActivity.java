@@ -1,4 +1,4 @@
-package cn.sniper.alice.Brain.BrainViews;
+package cn.sniper.alice.Brain.BrainViews.Chat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

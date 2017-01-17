@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.R;
 
 /**
@@ -21,22 +21,14 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
 
     private LayoutInflater mInflater = null;
 
-    private View.OnTouchListener onTouchListener;
-
-    private List<String> list;
+    private List<UserInfo> list;
 
     private ViewHolder holder;
 
-    private WindowManager windowManager;
 
-    private int layoutW;
-
-
-    public ChatListViewAdapter(List<String> list, Context context){
+    public ChatListViewAdapter(List<UserInfo> list, Context context){
         this.mInflater = LayoutInflater.from(context);
         this.list = list;
-        windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        layoutW = this.windowManager.getDefaultDisplay().getWidth();
     }
 
     @Override
@@ -59,28 +51,27 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
         if (view == null){
             holder = new ViewHolder();
             view = mInflater.inflate(R.layout.chat_listview_item_layout, null);
+            holder.user_icon = (ImageView) view.findViewById(R.id.user_icon);
+            holder.user_name = (TextView) view.findViewById(R.id.user_name);
+            holder.user_autograph = (TextView) view.findViewById(R.id.user_autograph);
             view.setTag(holder);
         }else{
             holder = (ViewHolder) view.getTag();
         }
 
+        holder.user_icon.setBackgroundResource(R.mipmap.ic_launcher);
+
+        holder.user_name.setText(list.get(i).getNickname());
+        Logger.e(list.get(i).getNickname());
+
         return view;
-    }
-
-    public interface OnTouch{
-        void Touch(int i);
-    }
-
-    public void setOnTouch(View.OnTouchListener touch){
-        this.onTouchListener = touch;
     }
 
     static class ViewHolder
     {
-        public ScrollView scrollView;
-        public TextView user_nick_name_text;
-        public LinearLayout linearLayout;
-        public TextView btn1;
+        public ImageView user_icon;
+        public TextView user_name;
+        public TextView user_autograph;
     }
 
 

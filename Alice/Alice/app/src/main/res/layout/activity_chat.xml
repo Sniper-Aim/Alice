@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/APP_Main_Back_Color">
+    android:background="#747474">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_weight="9">
 
-            <cn.sniper.alice.Brain.BrainViews.ChatViewPager
+            <cn.sniper.alice.Brain.BrainViews.Chat.ChatViewPager
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

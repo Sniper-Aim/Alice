@@ -5,7 +5,7 @@ package cn.sniper.alice.Thought;
  */
 
 
-import cn.sniper.alice.Brain.BrainInterFace.BrainInterFace;
+import cn.sniper.alice.Brain.BrainInterFace.OnBrain;
 import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.Hear.HearResult.HearResult;
 
@@ -22,9 +22,9 @@ public class Thought extends Thread{
     private static Boolean isRun = true;
 
     /**
-     * 声明大脑的说话接口 BrainInterFace -> Say 接口
+     * 声明大脑的说话接口 OnBrain -> Say 接口
      */
-    private static BrainInterFace.ToastSay brainSay;
+    private static OnBrain.ToastSay brainSay;
 
     @Override
     public void run() {
@@ -67,7 +67,7 @@ public class Thought extends Thread{
         Thought.isRun = isRun;
     }
 
-    public static void ToastSay(BrainInterFace.ToastSay brainSay){
+    public static void ToastSay(OnBrain.ToastSay brainSay){
         Thought.brainSay = brainSay;
     }
 

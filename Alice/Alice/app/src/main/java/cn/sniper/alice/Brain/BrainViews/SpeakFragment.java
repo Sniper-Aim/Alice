@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import cn.sniper.alice.Hear.Hear;
 import cn.sniper.alice.R;
-import cn.sniper.jpush.AUser.AUser;
 
 /**
  * Created by Lisa on 2017/1/5.
@@ -89,8 +88,6 @@ public class SpeakFragment extends BaseFragment{
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         start_say_tex.setText(R.string.StartSay);
                         stopSay();
-                        AUser.getInstance(getContext()).login("13020285800","123456");
-
                         or = false;
                     }
                 }

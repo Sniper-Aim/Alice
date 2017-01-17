@@ -1,10 +1,11 @@
-package cn.sniper.alice.Brain.BrainViews;
+package cn.sniper.alice.Brain.BrainViews.Chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.sniper.alice.Brain.BrainViews.BaseFragment;
 import cn.sniper.alice.R;
 
 /**

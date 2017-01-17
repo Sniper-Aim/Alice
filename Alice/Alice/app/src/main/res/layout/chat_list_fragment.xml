@@ -2,19 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/APP_Main_Back_Color">
+    android:background="#919191">
 
-    <!--<cn.sniper.alice.Brain.BrainViews.ChatMsgListView-->
+    <!--<cn.sniper.alice.Brain.BrainViews.Chat.ChatMsgListView-->
         <!--android:id="@+id/Chat_ListView"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
 
-    <!--</cn.sniper.alice.Brain.BrainViews.ChatMsgListView>-->
+    <!--</cn.sniper.alice.Brain.BrainViews.Chat.ChatMsgListView>-->
 
-    <cn.sniper.alice.Brain.BrainViews.ChatMsgListView
-        android:id="@+id/Chat_ListView"
+    <ListView
+        android:id="@+id/chat_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></cn.sniper.alice.Brain.BrainViews.ChatMsgListView>
-
-
+        android:layout_height="match_parent">
+    </ListView>
 </LinearLayout>
