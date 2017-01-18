@@ -8,7 +8,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
-import cn.sniper.alice.Hear.HearResult.Result;
+import cn.sniper.alice.Brain.Mode.Result;
 import cn.sniper.alice.Setting.SettingActivity.SettingActivity;
 
 
