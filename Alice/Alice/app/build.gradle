@@ -50,4 +50,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':jpush')
     compile files('libs/nineoldandroids-2.4.0.jar')
+    compile 'com.android.support:recyclerview-v7:25.1.0'
 }
