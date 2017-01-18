@@ -29,6 +29,10 @@
     <!--Chat Activity-->
     <string name="user_name">id</string>
 
+    <string name="friends_name">id</string>
+
+    <string name="user_item_record">记录</string>
+
     <string name="user_autograph">签名</string>
 
     <!--Conversation Activity-->

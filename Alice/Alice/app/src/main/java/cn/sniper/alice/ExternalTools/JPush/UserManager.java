@@ -38,6 +38,12 @@ public class UserManager{
         cn.sniper.jpush.JPush.getInstance(context, isDebug);
     }
 
+    /**
+     * 登录
+     * @param id
+     * @param pwd
+     * @param signOver
+     */
     public void login(String id, String pwd, final OnBrain.SignOver signOver){
         JMessageClient.login(id, pwd, new BasicCallback() {
             @Override
@@ -51,7 +57,9 @@ public class UserManager{
                     alice.setAddress(userInfo.getAddress());
                     //设置到当前Signature
                     alice.setSignature(userInfo.getSignature());
-
+                    //获取好友列表
+                    getFriendList();
+                    //获取会话列表
                     signOver.over(true);
 
                     Logger.e("["+alice.getName()+"]["+alice.getAddress()+"]["+alice.getSignature()+"]");
@@ -62,7 +70,6 @@ public class UserManager{
             }
         });
     }
-
 
     /**
      * 发送消息
@@ -128,15 +135,24 @@ public class UserManager{
             public void gotResult(int i, String s, List<UserInfo> list) {
                 if (isSuccess(i)){
                     alice.setUserList(list);
+                    //获取会话列表
+                    getConversationList();
                     for (int a = 0; a < list.size(); a++ ){
-                        Logger.e("获取成功"+a+"  |  "+list.get(a).getNickname());
                     }
-                    Logger.e(alice.getUserList().size()+"");
+                    Logger.e("获取好友成功");
                 }else{
-                    Logger.e("获取失败");
+                    alice.setUserList(null);
+                    Logger.e("获取好友失败");
                 }
             }
         });
+    }
+
+    /**
+     * 获取会话列表
+     */
+    public void getConversationList(){
+        alice.setConversationList(JMessageClient.getConversationList());
     }
 
     public void bindThisConversation(String username){

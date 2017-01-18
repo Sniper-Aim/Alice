@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.ant.liao.GifView;
 
+import cn.sniper.alice.Alice.Alice;
 import cn.sniper.alice.Brain.BrainInterFace.OnBrain;
 import cn.sniper.alice.ExternalTools.JPush.UserManager;
 import cn.sniper.alice.ExternalTools.LocalStorage.SharedPreference;
+import cn.sniper.alice.ExternalTools.Logs.Logger;
 import cn.sniper.alice.R;
 
 /**
@@ -118,16 +120,24 @@ public class SignActivity extends Activity implements View.OnClickListener{
         sign_button_loading.setShowDimension(40,40);
         sign_button_loading.setGifImage(R.mipmap.sign_button_loading);
 
-        //初始化CheckBox的状态
-        sign_checkbox_save_pwd.setChecked(
-                sharedPreference.readBol(SharedPreference.FileName.SAVE_IS_USERNAME.name(),
-                        sharedPreference.readStr(SharedPreference.FileName.SAVE_USERNAME.name(), 0+"")));
+        /**
+         * 初始化用户名密码和是否保存密码的操作
+         */
+        sign_checkbox_save_pwd.setChecked(getSaveCheckBox());
+        sign_edit_username.setText(getSaveUserName());
+        sign_edit_password.setText(getSavePassword(sign_edit_username.getText().toString()));
+
+        /**
+         * 初始化是否保存了帐号联动设置按钮状态
+         */
+        setSignButtonBack(checkUser(sign_edit_username.getText().toString()));
+
+
     }
 
     private void initEvent(){
         /*监听编辑框内容变化*/
         editUsernameEvent(sign_edit_username);
-        editPasswordEvent(sign_edit_password);
         sign_btn_sign.setOnClickListener(this);
         sign_checkbox_save_pwd.setOnClickListener(this);
         sign_forget_tex.setOnClickListener(this);
@@ -146,33 +156,7 @@ public class SignActivity extends Activity implements View.OnClickListener{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 3){
-                    isUsername = true;
-                    sign_btn_sign.setBackgroundResource(R.drawable.sign_rounded_sign_button_green);
-                    sign_btn_sign.setTextColor(ContextCompat.getColor(SignActivity.this, R.color.sign_rounded_sign_button_green_tex));
-                }else{
-                    isUsername = false;
-                    sign_btn_sign.setBackgroundResource(R.drawable.sign_rounded_sign_button_gray);
-                    sign_btn_sign.setTextColor(ContextCompat.getColor(SignActivity.this, R.color.sign_rounded_sign_button_gray_tex));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-    }
-    private void editPasswordEvent(EditText editText){
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 3){
-                    isPassword = true;
-                }else{
-                    isPassword = false;
-                }
+                setSignButtonBack(checkUser(charSequence.toString()));
             }
 
             @Override
@@ -190,7 +174,7 @@ public class SignActivity extends Activity implements View.OnClickListener{
 
             /* 登录按钮 */
             case R.id.sign_btn_sign:
-                if (isUsername && isPassword){
+                if (checkUser(sign_edit_username.getText().toString()) && checkPwd(sign_edit_password.getText().toString())){
                     if (!isSign){
                         sign(sign_checkbox_save_pwd.isChecked());
                     }else{
@@ -228,6 +212,7 @@ public class SignActivity extends Activity implements View.OnClickListener{
         /**
          * 调用执行登录操作
          */
+        Logger.e("开始登录");
         userManager.login(sign_edit_username.getText().toString(), sign_edit_password.getText().toString(), new OnBrain.SignOver() {
             @Override
             public void over(Boolean isOver) {
@@ -236,11 +221,15 @@ public class SignActivity extends Activity implements View.OnClickListener{
                     isSign = false;
                     String id = sign_edit_username.getText().toString();
                     String pwd = sign_edit_password.getText().toString();
+                    //是否勾选了保存密码
                     if (isCheck){
                         saveUserInfo(id, pwd);
                     }else{
                         deleteUserInfo(id);
                     }
+                    //设置当前登录状态
+                    Alice.setISRUN(true);
+                    Logger.e("SignActivity - 登录成功");
                     SignActivity.this.finish();
                     initLayout();
                 }else{
@@ -258,6 +247,60 @@ public class SignActivity extends Activity implements View.OnClickListener{
 
     private void errSign(){
 
+    }
+
+    //获取保存的帐号
+    private String getSaveUserName(){
+        return sharedPreference.readStr(SharedPreference.FileName.SAVE_USERNAME.name(), 0 + "")
+                == null ?
+                "" :
+                sharedPreference.readStr(SharedPreference.FileName.SAVE_USERNAME.name(), 0 + "");
+    }
+
+    //获取保存的密码
+    private String getSavePassword(String id){
+        return sharedPreference.readStr(SharedPreference.FileName.SAVE_PASSWORD.name(), id)
+                == null ?
+                "" :
+                sharedPreference.readStr(SharedPreference.FileName.SAVE_PASSWORD.name(), id);
+    }
+
+    //获取保存的保存密码状态
+    private Boolean getSaveCheckBox(){
+        return sharedPreference.readBol(SharedPreference.FileName.SAVE_IS_USERNAME.name(),
+                sharedPreference.readStr(SharedPreference.FileName.SAVE_USERNAME.name(), 0+""));
+    }
+
+    /**
+     * 检查帐号是否通过
+     * @return
+     */
+    private Boolean checkUser(String id){
+        if (id.length() > 4){
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean checkPwd(String pwd){
+        if (pwd.length() > 4){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 设置按钮的状态
+     * @param is
+     */
+    private void setSignButtonBack(Boolean is){
+        if (is){
+            sign_btn_sign.setBackgroundResource(R.drawable.sign_rounded_sign_button_green);
+            sign_btn_sign.setTextColor(ContextCompat.getColor(SignActivity.this, R.color.sign_rounded_sign_button_green_tex));
+        }else{
+            sign_btn_sign.setBackgroundResource(R.drawable.sign_rounded_sign_button_gray);
+            sign_btn_sign.setTextColor(ContextCompat.getColor(SignActivity.this, R.color.sign_rounded_sign_button_gray_tex));
+        }
     }
 
     /**
@@ -301,6 +344,12 @@ public class SignActivity extends Activity implements View.OnClickListener{
         sign_button_loading.setVisibility(View.GONE);
         sign_btn_sign.setText(R.string.sign_in_button);
         sign_edit_password.setText("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 
     @Override

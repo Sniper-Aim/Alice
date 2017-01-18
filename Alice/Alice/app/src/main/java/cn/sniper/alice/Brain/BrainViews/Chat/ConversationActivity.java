@@ -14,7 +14,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * Created by peisong on 2017/1/16.
  */
 
-public class ConversationActivity extends SwipeBackActivity {
+public class ConversationActivity extends SwipeBackActivity implements View.OnClickListener{
 
     private String userId;
     private String userName;
@@ -26,7 +26,6 @@ public class ConversationActivity extends SwipeBackActivity {
     private EditText conversation_edit_information;
 
     private Button conversation_send_out_button;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +52,22 @@ public class ConversationActivity extends SwipeBackActivity {
         conversation_username.setText(userName);
     }
     private void initEvent(){
-        conversation_send_out_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userManager.send(userManager.createTextMessage(userId, conversation_edit_information.getText().toString()));
-                conversation_edit_information.setText("");
-            }
-        });
+        conversation_send_out_button.setOnClickListener(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.conversation_send_out_button:
+                userManager.send(userManager.createTextMessage(userId, conversation_edit_information.getText().toString()));
+                conversation_edit_information.setText("");
+                break;
+        }
     }
 }

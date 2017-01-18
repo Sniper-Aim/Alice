@@ -13,12 +13,15 @@ import cn.sniper.alice.Alice.Alice;
 import cn.sniper.alice.Brain.AliceTouchManager.AliceTouchManager;
 import cn.sniper.alice.Brain.AliceTouchManager.View.TouchView;
 import cn.sniper.alice.Brain.Brain;
+import cn.sniper.alice.Brain.BrainInterFace.OnBrain;
 import cn.sniper.alice.Brain.BrainView.Adapter.FragmentAdapter.HiFragmentAdapter;
 import cn.sniper.alice.Brain.BrainViews.Chat.ChatActivity;
 import cn.sniper.alice.Brain.BrainViews.HiViewPager;
 import cn.sniper.alice.Brain.BrainViews.User.SignActivity;
+import cn.sniper.alice.Brain.Task.Task;
 import cn.sniper.alice.ExternalTools.JPush.UserManager;
 import cn.sniper.alice.ExternalTools.LocalStorage.SharedPreference;
+import cn.sniper.alice.ExternalTools.Logs.Logger;
 
 
 /**
@@ -28,7 +31,6 @@ public class Hi extends Brain implements View.OnClickListener{
     private static String TAG = "Hi";
 
     private UserManager userManager;
-
 
     /**
      * Alice对象
@@ -119,14 +121,21 @@ public class Hi extends Brain implements View.OnClickListener{
         if (id != null){
             String pwd = sharedPreferences.readStr(SharedPreference.FileName.SAVE_PASSWORD.name(), id);
             if (pwd != null) {
-                Alice.setISRUN(true);
+                Logger.e("开始登录"+id+pwd);
+                userManager.login(id, pwd, new OnBrain.SignOver() {
+                    @Override
+                    public void over(Boolean isOver) {
+                        Alice.setISRUN(true);
+                        Logger.e("initRun() - 登录成功");
+                    }
+                });
             }else{
-                Intent intent4 = new Intent(alice, SignActivity.class);
-                startActivity(intent4);
+//                Intent intent4 = new Intent(alice, SignActivity.class);
+//                startActivity(intent4);
             }
         }else{
-            Intent intent4 = new Intent(alice, SignActivity.class);
-            startActivity(intent4);
+//            Intent intent4 = new Intent(alice, SignActivity.class);
+//            startActivity(intent4);
         }
     }
 
@@ -143,24 +152,68 @@ public class Hi extends Brain implements View.OnClickListener{
                 break;
 
             case R.id.test1:
-                Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(alice, ChatActivity.class);
-                startActivity(intent);
+                Toast.makeText(this, "聊天", Toast.LENGTH_SHORT).show();
+
+                new Task(){
+                    @Override
+                    public void init() {
+                        Logger.e("init");
+                    }
+
+                    @Override
+                    public void start() {
+                        Logger.e("start");
+                        for (int i=0; i< 5; i++){
+                            try {
+                                Thread.sleep(500);
+                                aupdate();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void update() {
+                        Logger.e("update");
+                        speak_btn.setText("");
+                    }
+
+                    @Override
+                    public void exit() {
+                        Logger.e("exit");
+                    }
+                };
+
                 break;
 
             case R.id.test2:
-                Toast.makeText(this, "好友列表", Toast.LENGTH_SHORT).show();
-                userManager.getFriendList();
+                if (Alice.getISRUN()) {
+                    Toast.makeText(this, "好友列表", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(alice, ChatActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.test3:
-                Toast.makeText(this, "申请加好友", Toast.LENGTH_SHORT).show();
-                break;
+                if (Alice.getISRUN()) {
+                    Toast.makeText(this, "申请加好友", Toast.LENGTH_SHORT).show();
+//                    userManager.acceptInvitation("123456", "");
+                }else {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                }
+                    break;
 
             case R.id.test4:
-                Intent intent4 = new Intent(alice, SignActivity.class);
-                startActivity(intent4);
-                Toast.makeText(this, "登录", Toast.LENGTH_SHORT).show();
+                if (!Alice.getISRUN()) {
+                    Intent intent4 = new Intent(alice, SignActivity.class);
+                    startActivity(intent4);
+                    Toast.makeText(this, "登录", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "已登录", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -203,6 +256,5 @@ public class Hi extends Brain implements View.OnClickListener{
     public void test(){
         AliceTouchManager aliceTouch = AliceTouchManager.getAliceTouch(alice);
         aliceTouch.addView(TouchView.getTouchView(alice));
-
     }
 }

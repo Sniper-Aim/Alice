@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import cn.sniper.alice.Brain.BrainViews.Chat.ChatListFragment;
-import cn.sniper.alice.Brain.BrainViews.Chat.GroupListFragment;
+import cn.sniper.alice.Brain.BrainViews.Chat.ConversationListFragment;
 
 /**
  * Created by Lisa on 2017/1/5.
@@ -21,10 +21,10 @@ public class ChatFragmentAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-            return ChatListFragment.getInstance();
+                return ConversationListFragment.getInstance();
 
             case 1:
-            return GroupListFragment.getInstance();
+                return ChatListFragment.getInstance();
 
         }
         return new Fragment();

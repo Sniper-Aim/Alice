@@ -8,7 +8,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
 public class ChatViewPager extends ViewPager {
-    private boolean noScroll = true;
+    private boolean noScroll = false;
     private Context context;
     
     @Override

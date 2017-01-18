@@ -1,4 +1,4 @@
-package cn.sniper.alice.Hear.HearResult;
+package cn.sniper.alice.Brain.Mode;
 
 import java.io.Serializable;
 

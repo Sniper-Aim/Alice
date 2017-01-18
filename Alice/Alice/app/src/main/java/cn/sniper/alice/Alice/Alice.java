@@ -3,6 +3,7 @@ package cn.sniper.alice.Alice;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -69,8 +70,15 @@ public class Alice {
 
     }
 
+    /**
+     * 好友列表
+     */
     private List<UserInfo> userList = new ArrayList<>();
 
+    /**
+     * 会话列表
+     */
+    private List<Conversation> conversationList = new ArrayList<>();
 
 
 
@@ -169,5 +177,13 @@ public class Alice {
             alice = new Alice();
         }
         return alice;
+    }
+
+    public List<Conversation> getConversationList() {
+        return conversationList;
+    }
+
+    public void setConversationList(List<Conversation> conversationList) {
+        this.conversationList = conversationList;
     }
 }

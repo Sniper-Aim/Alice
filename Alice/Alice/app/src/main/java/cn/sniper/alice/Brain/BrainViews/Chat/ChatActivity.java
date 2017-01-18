@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
+import cn.sniper.alice.Alice.Alice;
 import cn.sniper.alice.Brain.BrainView.Adapter.FragmentAdapter.ChatFragmentAdapter;
+import cn.sniper.alice.ExternalTools.JPush.UserManager;
 import cn.sniper.alice.R;
 
 /**
@@ -20,11 +22,14 @@ public class ChatActivity extends FragmentActivity {
     private ChatViewPager viewPager;
     private int ViewPageLimit = 2;
 
+    private Alice alice;
+
+    private UserManager userManager;
+
     /**
      * Fragment适配器
      */
     private ChatFragmentAdapter fragmentAdapter;
-
 
     /**
      * 初始化布局
@@ -37,10 +42,15 @@ public class ChatActivity extends FragmentActivity {
      * 初始化数据
      */
     private void initData(){
+        alice = Alice.getInstance();
+        userManager = UserManager.getInstance(this);
         /**
          * 初始化主页的Fragment的Adapter
          */
         fragmentAdapter = new ChatFragmentAdapter(getSupportFragmentManager());
+        if (alice.getUserList() == null){
+
+        }
     }
 
     /**
@@ -54,14 +64,11 @@ public class ChatActivity extends FragmentActivity {
         viewPager.setAdapter(fragmentAdapter);
     }
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*  设置主页布局  */
         setContentView(R.layout.activity_chat);
-
         /*  初始化操作  */
         initView();
         initData();

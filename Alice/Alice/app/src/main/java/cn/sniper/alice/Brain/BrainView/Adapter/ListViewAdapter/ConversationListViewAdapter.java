@@ -9,24 +9,22 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cn.jpush.im.android.api.model.UserInfo;
-import cn.sniper.alice.ExternalTools.Logs.Logger;
+import cn.jpush.im.android.api.model.Conversation;
 import cn.sniper.alice.R;
 
 /**
- * Created by peisong on 2017/1/13.
+ * Created by peisong on 2017/1/18.
  */
 
-public class ChatListViewAdapter extends ListViewBaseAdapter {
+public class ConversationListViewAdapter extends ListViewBaseAdapter{
 
     private LayoutInflater mInflater = null;
 
-    private List<UserInfo> list;
+    private List<Conversation> list;
 
     private ViewHolder holder;
 
-
-    public ChatListViewAdapter(List<UserInfo> list, Context context){
+    public ConversationListViewAdapter(List<Conversation> list, Context context){
         this.mInflater = LayoutInflater.from(context);
         this.list = list;
     }
@@ -50,19 +48,17 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null){
             holder = new ViewHolder();
-            view = mInflater.inflate(R.layout.chat_listview_item_layout, null);
-            holder.user_icon = (ImageView) view.findViewById(R.id.user_icon);
-            holder.user_name = (TextView) view.findViewById(R.id.user_name);
-            holder.user_autograph = (TextView) view.findViewById(R.id.user_autograph);
+            view = mInflater.inflate(R.layout.conversation_listview_item_layout, null);
+            holder.user_icon = (ImageView) view.findViewById(R.id.conversation_item_icon);
+            holder.user_name = (TextView) view.findViewById(R.id.conversation_friends_name);
+            holder.user_autograph = (TextView) view.findViewById(R.id.conversation_item_record);
             view.setTag(holder);
         }else{
             holder = (ViewHolder) view.getTag();
         }
-
         holder.user_icon.setBackgroundResource(R.mipmap.ic_launcher);
-        holder.user_name.setText(list.get(i).getNickname());
-        Logger.e(list.get(i).getNickname());
-
+        holder.user_name.setText(list.get(i).getTitle());
+        holder.user_autograph.setText(list.get(i).getLatestMessage().getContent().getStringExtra("text"));
         return view;
     }
 
@@ -72,6 +68,5 @@ public class ChatListViewAdapter extends ListViewBaseAdapter {
         public TextView user_name;
         public TextView user_autograph;
     }
-
 
 }
