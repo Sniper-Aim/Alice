@@ -35,20 +35,24 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:25.0.1'
     //    testCompile 'junit:junit:4.12'
     /**
-     *   toggle button 第三方开关控件
+     *    toggle button 第三方开关控件
      */
     compile 'com.zcw:togglebutton-library:1.0.0'
     /**
-     *  EventBus 消息分发
+     *   EventBus 消息分发
      */
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
     /**
-     *  SwipeBackActivity
+     *   SwipeBackActivity
      */
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
     compile project(':jpush')
     compile files('libs/nineoldandroids-2.4.0.jar')
+<<<<<<< HEAD
     compile 'com.android.support:recyclerview-v7:25.1.0'
+=======
+    compile files('libs/GifView.jar')
+>>>>>>> ac81c88b66292b87e302cb880f74d70c8a615748
 }

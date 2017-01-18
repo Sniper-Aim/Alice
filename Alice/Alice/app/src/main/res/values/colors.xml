@@ -33,4 +33,8 @@
 
     <!--Dialog的文字颜色-->
     <color name="dialog_Text_Color">#a1a1a1</color>
+    
+    
+    <color name="sign_rounded_sign_button_gray_tex">#8e8e8e</color>
+    <color name="sign_rounded_sign_button_green_tex">#333333</color>
 </resources>

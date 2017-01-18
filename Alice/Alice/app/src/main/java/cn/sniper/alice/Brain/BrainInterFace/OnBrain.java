@@ -5,8 +5,12 @@ package cn.sniper.alice.Brain.BrainInterFace;
  */
 
 public
-interface BrainInterFace {
+interface OnBrain {
     interface ToastSay{
         void Say(String str);
+    }
+
+    interface SignOver{
+        void over(Boolean isOver);
     }
 }

@@ -1,4 +1,4 @@
-package cn.sniper.alice.Brain.BrainViews;
+package cn.sniper.alice.Brain.BrainViews.Chat;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-public class HiViewPager extends ViewPager {
+public class ChatViewPager extends ViewPager {
     private boolean noScroll = false;
     private Context context;
     
@@ -17,14 +17,14 @@ public class HiViewPager extends ViewPager {
 		super.setOffscreenPageLimit(limit);
 	}
 
-	public HiViewPager(Context context, AttributeSet attrs) {
+	public ChatViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         // TODO Auto-generated constructor stub
     }
 
 
-    public HiViewPager(Context context) {
+    public ChatViewPager(Context context) {
         super(context);
         this.context = context;
     }
